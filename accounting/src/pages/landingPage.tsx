@@ -11,6 +11,14 @@ type Props = {
 
 export default function LandingPage({ chapters, onSelectChapter, onSearch, onReviewRandom, message }: Props) {
   const [query, setQuery] = useState("");
+  const [selectedSections, setSelectedSections] = useState<Record<string, number>>({});
+
+  const updateSection = (chapterId: string, sectionIndex: number) => {
+    setSelectedSections((prev) => ({
+      ...prev,
+      [chapterId]: sectionIndex,
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-forest-900 to-charcoal p-6">
@@ -80,21 +88,45 @@ export default function LandingPage({ chapters, onSelectChapter, onSearch, onRev
                 </span>
               </div>
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-6 space-y-3">
+                {chapter.cards.length > 10 ? (
+                  <div className="flex items-center justify-between gap-3 rounded-organic border border-clay/20 bg-clay/5 p-3 text-sm text-charcoal">
+                    <button
+                      onClick={() => {
+                        const sectionCount = Math.ceil(chapter.cards.length / 10);
+                        const currentSection = selectedSections[chapter.id] ?? 0;
+                        const previousSection = (currentSection + sectionCount - 1) % sectionCount;
+                        updateSection(chapter.id, previousSection);
+                      }}
+                      className="rounded-industrial border border-clay/30 bg-white px-3 py-2 font-semibold text-charcoal transition duration-200 hover:border-organic-orange-500 hover:bg-organic-orange-50 active:scale-95"
+                    >
+                      &lt;
+                    </button>
+
+                    <div className="flex-1 text-center font-semibold">
+                      Section {(selectedSections[chapter.id] ?? 0) + 1} / {Math.ceil(chapter.cards.length / 10)}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        const sectionCount = Math.ceil(chapter.cards.length / 10);
+                        const currentSection = selectedSections[chapter.id] ?? 0;
+                        const nextSection = (currentSection + 1) % sectionCount;
+                        updateSection(chapter.id, nextSection);
+                      }}
+                      className="rounded-industrial border border-clay/30 bg-white px-3 py-2 font-semibold text-charcoal transition duration-200 hover:border-organic-orange-500 hover:bg-organic-orange-50 active:scale-95"
+                    >
+                      &gt;
+                    </button>
+                  </div>
+                ) : null}
+
                 <button
-                  onClick={() => onSelectChapter(chapter.id)}
+                  onClick={() => onSelectChapter(chapter.id, selectedSections[chapter.id] ?? 0)}
                   className="w-full rounded-organic bg-organic-orange-500 px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-organic-orange-700 hover:shadow-organic active:scale-95"
                 >
-                  Start chapter
+                  Start section
                 </button>
-                {chapter.cards.length > 10 ? (
-                  <button
-                    onClick={() => onSelectChapter(chapter.id, 1)}
-                    className="w-full rounded-industrial border-2 border-organic-orange-500 bg-white px-5 py-3 text-sm font-semibold text-organic-orange-700 transition-all duration-200 hover:border-organic-orange-700 hover:bg-organic-orange-50 active:scale-95"
-                  >
-                    Start next 10-card section
-                  </button>
-                ) : null}
               </div>
             </div>
           ))}

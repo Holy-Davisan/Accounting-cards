@@ -50,22 +50,53 @@ Must be fully complete and runnable.
 
 ## FLASHCARDS
 ```ts
-type Flashcard = {
-  id: number
-  question: string
-  choices: { A: string; B: string; C: string; D: string }
-  correct: "A"|"B"|"C"|"D"
-  explanation: string
-  difficulty: number
-  tags: string[]
+type Card = {
+  q: string;        // Question text
+  a: string;        // Correct answer key ("A", "B", "C", or "D")
+  o: string[];      // Array of 4 options ["option A", "option B", "option C", "option D"]
 }
+```
 
+## OUTPUT FORMAT (MANDATORY)
+Flashcards MUST be exported as:
+```ts
+export const cards: Card[] = [
+  {
+    q: "Question text here?",
+    a: "C",  // Correct answer key
+    o: ["Option A", "Option B", "Option C", "Option D"]
+  },
+  // ... more cards
+];
+```
+
+## FILE STRUCTURE (MANDATORY)
+Output MUST follow this exact structure:
+```
+/src
+  /data
+    cards.ts          # Main card export
+    index.ts          # Auto-loader for chapters
+  /types
+    index.ts          # Type definitions
+  /components
+    questionCard.tsx  # Card display component
+    optionButton.tsx  # Answer selection
+    resultsView.tsx   # Results display
+  /pages
+    landingPage.tsx   # Chapter selection
+    flashcardPage.tsx # Quiz interface
+  /hooks
+    useScore.ts       # Scoring logic
+    useFlashcards.ts  # Quiz state management
+  App.tsx             # Main app component
+  index.tsx           # App entry point
 ```
 
 ## RULES (CORE ENGINE SPEC)
 
 ### 📦 SESSION CONSTRAINTS
-- Exactly 10 cards per session
+- Cards loaded from chapter files (variable count per chapter)
 - Must be conceptually non-trivial
 - Each card MUST include at least one:
   constraint, distinction, applied scenario, or comparison
@@ -116,7 +147,7 @@ End of session → “Wrong Card Cave”
 ---
 
 ### 📋 SESSION RULES
-- Exactly 10 cards per session
+- Cards loaded from chapter files in /data/
 - User interaction required before answer reveal
 - Only timeout triggers auto-progression
 
@@ -138,8 +169,26 @@ Prefer:
 
 ### 🚨 EXECUTION GUARANTEE
 You MUST:
-- generate full UI
+- generate full UI matching current system structure
 - implement timer system
 - implement scoring + adaptive logic
 - implement review mode
-- embed flashcards from input
+- export cards in correct Card[] format
+- follow exact file structure above
+
+---
+
+## Flashcard MathJax Update
+
+The new flashcard engine now supports math rendering inside card text and answer options.
+
+- Math markup can appear in `Card.q` and `Card.o` strings.
+- Supported delimiters:
+  - `$...$`
+  - `$$...$$`
+  - `\(...\)`
+  - `\[...\]`
+- Math is rendered in the main flashcard view, review mode, and results screen.
+- A shared `MathJaxContext` is now provided at the app root.
+
+This update also includes parser coverage for the new `MathText` renderer.

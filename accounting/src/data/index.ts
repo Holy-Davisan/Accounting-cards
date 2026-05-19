@@ -1,25 +1,20 @@
-import { Chapter, Card } from "../types";
+import { Chapter } from "../types";
+import * as chapter1 from "./cards/chapter1";
+import * as chapter2 from "./cards/chapter2";
 
-type DataSet = {
-  cards: Card[];
-  title?: string;
-};
-
-const context = (require as any).context("./", false, /^((?!index).)*\.ts$/);
-
-const chapterDefinitions = context
-  .keys()
-  .filter((path: string) => !path.includes("index.ts"))
-  .sort((a: string, b: string) => a.localeCompare(b, undefined, { numeric: true }))
-  .map((path: string, index: number) => {
-    const module: DataSet = context(path);
-    const title = module.title ? module.title : `Chapter ${index + 1}`;
-    return {
-      id: `chapter-${index + 1}`,
-      title,
-      description: module.title ? module.title : `Chapter ${index + 1}`,
-      cards: module.cards,
-    } as Chapter;
-  });
+const chapterDefinitions: Chapter[] = [
+  {
+    id: "chapter-1",
+    title: "Chapter 1",
+    description: "Chapter 1",
+    cards: chapter1.cards,
+  },
+  {
+    id: "chapter-2",
+    title: "Chapter 2",
+    description: "Chapter 2",
+    cards: chapter2.cards,
+  },
+];
 
 export const chapters: Chapter[] = chapterDefinitions;

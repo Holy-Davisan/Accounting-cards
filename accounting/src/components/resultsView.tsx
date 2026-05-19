@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "../types";
+import MathText from "./MathText";
 
 type Props = {
   correct: number;
@@ -32,7 +33,11 @@ export default function ResultsView({ correct, wrong, wrongCards, onReturnHome }
           <h2 className="font-serif font-semibold text-charcoal">Missed Questions</h2>
           <ul className="mt-3 space-y-2 text-clay font-sans">
             {wrongCards.length > 0 ? (
-              wrongCards.map((c, idx) => <li key={idx}>• {c.q}</li>)
+              wrongCards.map((c, idx) => (
+                <li key={idx}>
+                  • <MathText text={c.q} />
+                </li>
+              ))
             ) : (
               <li className="text-sm text-clay/60">No missed cards this session.</li>
             )}

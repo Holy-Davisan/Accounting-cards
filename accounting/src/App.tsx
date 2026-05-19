@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
+import { MathJaxContext } from "better-react-mathjax";
 import LandingPage from "./pages/landingPage";
 import FlashcardPage from "./pages/flashcardPage";
+import AiPage from "./pages/aiPage";
 import { chapters } from "./data";
 import { Card, Chapter } from "./types";
 
@@ -27,7 +29,7 @@ function getRandomCards(chapters: Chapter[], count: number) {
 export default function App() {
   const [activeCards, setActiveCards] = useState<Card[]>([]);
   const [activeTitle, setActiveTitle] = useState("");
-  const [page, setPage] = useState<"landing" | "flashcards">("landing");
+  const [page, setPage] = useState<"landing" | "flashcards" | "ai">("landing");
   const [message, setMessage] = useState("");
 
   const allChapters = useMemo(() => chapters, []);
@@ -77,15 +79,35 @@ export default function App() {
     setMessage("");
   };
 
-  return page === "landing" ? (
-    <LandingPage
-      chapters={allChapters}
-      onSelectChapter={handleSelectChapter}
-      onSearch={handleSearch}
-      onReviewRandom={handleReviewRandom}
-      message={message}
-    />
-  ) : (
-    <FlashcardPage cards={activeCards} title={activeTitle} onQuit={handleReturnHome} />
+  const handleOpenAi = () => {
+    setPage("ai");
+    setMessage("");
+  };
+
+  const mathConfig = {
+    loader: { load: ["input/tex", "output/svg"] },
+    tex: {
+      inlineMath: [["$", "$"], ["\\(", "\\)"]],
+      displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+    },
+  };
+
+  return (
+    <MathJaxContext config={mathConfig}>
+      {page === "landing" ? (
+        <LandingPage
+          chapters={allChapters}
+          onSelectChapter={handleSelectChapter}
+          onSearch={handleSearch}
+          onReviewRandom={handleReviewRandom}
+          onOpenAi={handleOpenAi}
+          message={message}
+        />
+      ) : page === "ai" ? (
+        <AiPage onQuit={handleReturnHome} />
+      ) : (
+        <FlashcardPage cards={activeCards} title={activeTitle} onQuit={handleReturnHome} />
+      )}
+    </MathJaxContext>
   );
 }

@@ -1,0 +1,88 @@
+import { Card } from "../../types";
+
+export const cards: Card[] = [
+  {
+    q: "A company purchases equipment with cash. Which accounting concept requires both accounts to be updated?",
+    a: "B",
+    o: ["Trial balance","Double-entry system","Chart of accounts","Journalizing"],
+    category: "exercise",
+    explanation: "The correct answer is B, \"Double-entry system,\" because every transaction affects at least two accounts. When equipment is purchased with cash, the Equipment account increases while the Cash account decreases. Choice A is incorrect because a trial balance is used later to check whether debits equal credits. Choice C is incorrect because the chart of accounts is simply a list of account names. Choice D is incorrect because journalizing means recording transactions, not the rule requiring two accounts to change.",
+  },
+  {
+    q: "Which accounting record initially captures transactions in chronological order before posting?",
+    a: "C",
+    o: ["General ledger","Trial balance","Journal","T-account"],
+    category: "exercise",
+    explanation: "The correct answer is C, \"Journal,\" because transactions are first recorded in chronological order in the journal before they are posted to ledger accounts. Choice A is incorrect because the general ledger organizes transactions by account rather than by date. Choice B is incorrect because a trial balance is prepared after posting to verify debit and credit balances. Choice D is incorrect because a T-account is only a visual aid used to analyze individual accounts.",
+  },
+  {
+    q: "Which event would NOT normally be recorded as an accounting transaction?",
+    a: "D",
+    o: ["Paying rent","Receiving customer cash","Purchasing inventory on credit","Owner predicts future sales growth"],
+    category: "exercise",
+    explanation: "The correct answer is D, \"Owner predicts future sales growth,\" because predictions and expectations are not measurable financial transactions. Choice A is incorrect because paying rent involves an actual cash payment. Choice B is incorrect because receiving customer cash changes assets and must be recorded. Choice C is incorrect because purchasing inventory on credit creates both an asset and a liability that must be recorded.",
+  },
+  {
+    q: "A chart of accounts is primarily used to:",
+    a: "A",
+    o: ["Provide a structured list of company accounts","Replace the general journal","Calculate trial balance totals","Eliminate posting errors"],
+    category: "general",
+    explanation: "The correct answer is A, \"Provide a structured list of company accounts,\" because the chart of accounts organizes all accounts used by a business. Choice B is incorrect because the general journal is still needed to record transactions. Choice C is incorrect because trial balance totals are calculated from ledger balances, not directly from the chart of accounts. Choice D is incorrect because the chart of accounts helps organization but does not prevent all posting errors.",
+  },
+  {
+    q: "In accounting terminology, a debit refers to:",
+    a: "B",
+    o: ["The right side of an account","The left side of an account","An increase in liabilities only","A decrease in assets only"],
+    category: "general",
+    explanation: "The correct answer is B, \"The left side of an account,\" because debits are always recorded on the left side in double-entry accounting. Choice A is incorrect because the right side is the credit side. Choice C is incorrect because debits can increase assets and expenses, not just liabilities. Choice D is incorrect because debits often increase assets rather than decrease them.",
+  },
+  {
+    q: "What is the main purpose of posting?",
+    a: "C",
+    o: ["Recording transactions chronologically","Preparing financial statements","Transferring journal amounts to ledger accounts","Balancing debits and credits"],
+    category: "vocab",
+    explanation: "The correct answer is C, \"Transferring journal amounts to ledger accounts,\" because posting moves information from the journal into the appropriate ledger accounts. Choice A is incorrect because recording transactions chronologically is the purpose of journalizing. Choice B is incorrect because financial statements are prepared after posting and adjusting entries. Choice D is incorrect because balancing debits and credits is the purpose of preparing a trial balance.",
+  },
+  {
+    q: "Which statement best distinguishes a general journal from a general ledger?",
+    a: "D",
+    o: ["The ledger records transactions first","The journal stores only asset accounts","Both serve identical purposes","The journal records transactions chronologically while the ledger organizes by account"],
+    category: "general",
+    explanation: "The correct answer is D because the general journal records transactions by date, while the general ledger groups transactions into individual accounts. Choice A is incorrect because transactions are first recorded in the journal, not the ledger. Choice B is incorrect because journals contain all types of accounts, not only assets. Choice C is incorrect because the journal and ledger serve different functions in the accounting process.",
+  },
+  {
+    q: "A trial balance is mainly used to:",
+    a: "A",
+    o: ["Check whether total debits equal total credits","Record transactions in order","List only expense accounts","Replace the double-entry system"],
+    category: "general",
+    explanation: "The correct answer is A because a trial balance checks whether the total debits equal the total credits after posting. Choice B is incorrect because transactions are recorded in chronological order in the journal. Choice C is incorrect because a trial balance includes all account types, not just expenses. Choice D is incorrect because the trial balance supports the double-entry system rather than replacing it.",
+  },
+  {
+    q: "Which accounting tool visually separates debit and credit entries within one account?",
+    a: "C",
+    o: ["Chart of accounts","General journal","T-account","Trial balance"],
+    category: "general",
+    explanation: "The correct answer is C, \"T-account,\" because it visually shows debits on the left side and credits on the right side of a single account. Choice A is incorrect because the chart of accounts is only a listing of accounts. Choice B is incorrect because the general journal records transactions chronologically rather than visually separating one account. Choice D is incorrect because a trial balance summarizes account balances but does not display debit and credit activity within one account.",
+  },
+  {
+    q: "Why is an accounting information system important to organizations?",
+    a: "B",
+    o: ["It guarantees profits","It collects and communicates financial information to decision-makers","It eliminates accounting errors automatically","It replaces financial statements entirely"],
+    category: "concept",
+    explanation: "The correct answer is B because an accounting information system gathers, processes, and communicates financial information that managers and other users need for decision-making. Choice A is incorrect because no system can guarantee profits. Choice C is incorrect because accounting systems can reduce errors but cannot eliminate them completely. Choice D is incorrect because financial statements are still necessary outputs of the system.",
+  },
+  {
+    q: "If assets are $$120{,}000$ and liabilities are $$80{,}000$, what is equity according to the accounting equation $\\text{Assets} = \\text{Liabilities} + \\text{Equity}$?",
+    a: "A",
+    o: ["$$40{,}000$","$$200{,}000$","$$80{,}000$","$$120{,}000$"],
+    category: "exercise",
+    explanation: "The correct answer is A, \"$$40{,}000$,\" because equity equals assets minus liabilities. Using the accounting equation, $$120{,}000 - 80{,}000 = 40{,}000$$. Choice B is incorrect because it adds assets and liabilities instead of subtracting. Choice C is incorrect because it repeats the liabilities amount rather than calculating equity. Choice D is incorrect because it repeats the assets amount.",
+  },
+  {
+    q: "Which of the following correctly represents net income using financial statement terms?",
+    a: "D",
+    o: ["$\\text{Assets} = \\text{Liabilities} + \\text{Equity}$","$\\text{Gross Profit} = \\text{Revenue} + \\text{Expenses}$","$\\text{Cash Flow} = \\text{Operating Activities} - \\text{Investing Activities}$","$\\text{Net Income} = \\text{Revenue} - \\text{Expenses}$"],
+    category: "general",
+    explanation: "The correct answer is D because net income is calculated by subtracting expenses from revenue. Choice A is incorrect because it represents the accounting equation, not net income. Choice B is incorrect because gross profit equals revenue minus cost of goods sold, not revenue plus expenses. Choice C is incorrect because cash flow calculations are more complex and are not the formula for net income.",
+  },
+];

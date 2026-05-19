@@ -37,7 +37,6 @@ export default function FlashcardPage({ cards, title, onQuit }: Props) {
     );
   }
 
-  // Show review mode after every 10 cards or at completion
   if (flash.shouldReview && !flash.isDone) {
     if (flash.isReviewMode) {
       return (
@@ -48,40 +47,39 @@ export default function FlashcardPage({ cards, title, onQuit }: Props) {
           onContinue={flash.continueAfterReview}
         />
       );
-    } else {
-      // Show prompt to start review
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-forest-50 p-4">
-          <div className="w-full max-w-md rounded-organic border-2 border-clay/20 bg-white p-8 text-center shadow-organic">
-            <h1 className="text-2xl font-serif font-bold text-charcoal">🧠 Section Complete</h1>
-            <p className="mt-3 text-clay font-sans">
-              You've completed {flash.i % 10 === 0 ? 10 : flash.i % 10} cards in this section.
-              {flash.currentChunkWrongCards.length > 0
-                ? ` Time to review the ${flash.currentChunkWrongCards.length} card${flash.currentChunkWrongCards.length === 1 ? '' : 's'} you got wrong.`
-                : ' Great job! No wrong cards to review.'
-              }
-            </p>
-            <div className="mt-6 flex gap-3 justify-center">
-              {flash.currentChunkWrongCards.length > 0 ? (
-                <button
-                  onClick={flash.startReview}
-                  className="rounded-organic bg-rose-500 px-5 py-3 text-white transition-all duration-200 hover:bg-rose-700 hover:shadow-organic active:scale-95 font-semibold"
-                >
-                  Review Wrong Cards
-                </button>
-              ) : (
-                <button
-                  onClick={flash.continueAfterReview}
-                  className="rounded-organic bg-organic-orange-500 px-5 py-3 text-white transition-all duration-200 hover:bg-organic-orange-700 hover:shadow-organic active:scale-95 font-semibold"
-                >
-                  Continue
-                </button>
-              )}
-            </div>
+    }
+
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-forest-50 p-4">
+        <div className="w-full max-w-md rounded-organic border-2 border-clay/20 bg-white p-8 text-center shadow-organic">
+          <h1 className="text-2xl font-serif font-bold text-charcoal">🧠 Section Complete</h1>
+          <p className="mt-3 text-clay font-sans">
+            You've completed {flash.i % 10 === 0 ? 10 : flash.i % 10} cards in this section.
+            {flash.currentChunkWrongCards.length > 0
+              ? ` Time to review the ${flash.currentChunkWrongCards.length} card${flash.currentChunkWrongCards.length === 1 ? '' : 's'} you got wrong.`
+              : ' Great job! No wrong cards to review.'
+            }
+          </p>
+          <div className="mt-6 flex gap-3 justify-center">
+            {flash.currentChunkWrongCards.length > 0 ? (
+              <button
+                onClick={flash.startReview}
+                className="rounded-organic bg-rose-500 px-5 py-3 text-white transition-all duration-200 hover:bg-rose-700 hover:shadow-organic active:scale-95 font-semibold"
+              >
+                Review Wrong Cards
+              </button>
+            ) : (
+              <button
+                onClick={flash.continueAfterReview}
+                className="rounded-organic bg-organic-orange-500 px-5 py-3 text-white transition-all duration-200 hover:bg-organic-orange-700 hover:shadow-organic active:scale-95 font-semibold"
+              >
+                Continue
+              </button>
+            )}
           </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 
   if (flash.isDone) {
@@ -100,7 +98,6 @@ export default function FlashcardPage({ cards, title, onQuit }: Props) {
   return (
     <div className="min-h-screen bg-forest-50 p-4">
       <div className="w-full max-w-2xl mx-auto">
-        {/* Progress bar - industrial clean */}
         <div className="h-2 bg-clay/20 rounded-industrial w-full mb-8 shadow-inner">
           <div
             className="h-full bg-organic-orange-500 rounded-industrial transition-all duration-300"

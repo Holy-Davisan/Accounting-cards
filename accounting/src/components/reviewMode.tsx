@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "../types";
+import MathText from "./MathText";
 
 type Props = {
   wrongCards: Card[];
@@ -43,13 +44,17 @@ export default function ReviewMode({ wrongCards, currentIndex, onNext, onContinu
             {/* Question */}
             <div>
               <h2 className="text-xl font-serif font-semibold text-charcoal mb-3">Question:</h2>
-              <p className="text-lg text-clay font-sans leading-relaxed">{card.q}</p>
+              <p className="text-lg text-clay font-sans leading-relaxed">
+                <MathText text={card.q} />
+              </p>
             </div>
 
             {/* Answer */}
             <div className="border-t border-clay/10 pt-6">
               <h3 className="text-lg font-serif font-semibold text-organic-orange-600 mb-3">Correct Answer:</h3>
-              <p className="text-lg text-charcoal font-sans font-medium leading-relaxed">{card.a}</p>
+              <p className="text-lg text-charcoal font-sans font-medium leading-relaxed">
+                <MathText text={card.a} />
+              </p>
             </div>
 
             {/* Options (if available) */}
@@ -66,7 +71,7 @@ export default function ReviewMode({ wrongCards, currentIndex, onNext, onContinu
                           : 'border-clay/20 bg-clay/5 text-clay'
                       }`}
                     >
-                      {option}
+                      <MathText text={option} />
                     </div>
                   ))}
                 </div>

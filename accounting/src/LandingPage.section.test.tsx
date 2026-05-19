@@ -14,6 +14,8 @@ const makeChapter = (count: number): ChapterFixture => ({
     q: `Question ${idx + 1}`,
     a: 'Answer',
     o: ['Answer', 'Option B', 'Option C', 'Option D'],
+    category: 'general',
+    explanation: 'Test explanation',
   })),
 });
 

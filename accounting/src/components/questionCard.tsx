@@ -1,17 +1,18 @@
 import React from "react";
 import { Card } from "../types";
 import OptionButton from "./optionButton";
+import MathText from "./MathText";
 
 type Props = {
-card: Card;
-index: number;
-total: number;
-selected: string | null;
-revealed: boolean;
-isCorrect: boolean;
-onSelect: (key: string) => void;
-onReveal: () => void;
-onNext: () => void;
+  card: Card;
+  index: number;
+  total: number;
+  selected: string | null;
+  revealed: boolean;
+  isCorrect: boolean;
+  onSelect: (key: string) => void;
+  onReveal: () => void;
+  onNext: () => void;
 };
 
 export default function QuestionCard({
@@ -33,7 +34,9 @@ return (
     Card {index + 1} / {total}
   </p>
 
-  <h2 className="text-lg font-serif font-semibold mb-4 text-charcoal">{card.q}</h2>
+  <h2 className="text-lg font-serif font-semibold mb-4 text-charcoal">
+    <MathText text={card.q} />
+  </h2>
 
   <div className="space-y-3">
     {card.o.map((opt, idx) => {
@@ -42,10 +45,11 @@ return (
       return (
         <OptionButton
           key={key}
-          label={`${key}. ${opt}`}
           selected={selected === key}
           onClick={() => onSelect(key)}
-        />
+        >
+          <MathText text={`${key}. ${opt}`} />
+        </OptionButton>
       );
     })}
   </div>

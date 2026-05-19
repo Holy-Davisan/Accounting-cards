@@ -6,10 +6,11 @@ type Props = {
   onSelectChapter: (chapterId: string, sectionIndex?: number) => void;
   onSearch: (query: string) => void;
   onReviewRandom: () => void;
+  onOpenAi?: () => void;
   message?: string;
 };
 
-export default function LandingPage({ chapters, onSelectChapter, onSearch, onReviewRandom, message }: Props) {
+export default function LandingPage({ chapters, onSelectChapter, onSearch, onReviewRandom, onOpenAi, message }: Props) {
   const [query, setQuery] = useState("");
   const [selectedSections, setSelectedSections] = useState<Record<string, number>>({});
 
@@ -34,12 +35,22 @@ export default function LandingPage({ chapters, onSelectChapter, onSearch, onRev
                 Start with a chapter, search the whole deck, or practice a random set of 20 cards. Your progress resets each session.
               </p>
             </div>
-            <button
-              onClick={onReviewRandom}
-              className="inline-flex items-center justify-center rounded-organic bg-organic-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-organic transition-all duration-200 hover:bg-organic-orange-700 hover:shadow-lg hover:-translate-y-1 active:scale-95"
-            >
-              Review 20 Random Cards
-            </button>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <button
+                onClick={onReviewRandom}
+                className="inline-flex items-center justify-center rounded-organic bg-organic-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-organic transition-all duration-200 hover:bg-organic-orange-700 hover:shadow-lg hover:-translate-y-1 active:scale-95"
+              >
+                Review 20 Random Cards
+              </button>
+              {onOpenAi ? (
+                <button
+                  onClick={onOpenAi}
+                  className="inline-flex items-center justify-center rounded-organic border border-clay/20 bg-white px-6 py-3 text-sm font-semibold text-charcoal shadow-organic transition-all duration-200 hover:border-organic-orange-500 hover:bg-organic-orange-50 hover:shadow-lg active:scale-95"
+                >
+                  Open AI Assistant
+                </button>
+              ) : null}
+            </div>
           </div>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]">

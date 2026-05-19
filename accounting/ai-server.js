@@ -35,17 +35,20 @@ function parseCardsFromSource(filePath, chapterId) {
   const objects = sectionText.split(/\n\s*},\s*\n/).map((obj) => obj.trim()).filter(Boolean);
 
   return objects.map((objText, index) => {
-    const qMatch = objText.match(/q:\s*"([^"]*)"/);
-    const aMatch = objText.match(/a:\s*"([^"]*)"/);
+    const qMatch = objText.match(/q:\s*"((?:\\.|[^"\\])*)"/);
+    const aMatch = objText.match(/a:\s*"((?:\\.|[^"\\])*)"/);
+    const explanationMatch = objText.match(/explanation:\s*"((?:\\.|[^"\\])*)"/);
     const oMatch = objText.match(/o:\s*\[([\s\S]*?)\]/m);
-    const options = oMatch ? Array.from(oMatch[1].matchAll(/"([^"]*)"/g)).map((m) => m[1]) : [];
+    const options = oMatch ? Array.from(oMatch[1].matchAll(/"((?:\\.|[^"\\])*)"/g)).map((m) => m[1]) : [];
     const q = qMatch ? qMatch[1] : '';
     const a = aMatch ? aMatch[1] : '';
+    const explanation = explanationMatch ? explanationMatch[1].replace(/\\"/g, '"') : '';
     return {
       id: `${chapterId}-idx-${String(index + 1).padStart(2, '0')}`,
       q,
       o: options,
       a: normalizeAnswer({ a, o: options }),
+      explanation,
       explanations: options.reduce((acc, _, optionIndex) => {
         acc[String.fromCharCode(65 + optionIndex)] = '';
         return acc;
@@ -144,7 +147,10 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 400, { error: 'Missing question in request body' });
       }
       const { cards } = findCards(question);
-      const contextLines = cards.map((card) => `Q: ${card.q} | A: ${card.a}`);
+      const contextLines = cards.map((card) => {
+        const explanationFragment = card.explanation ? ` | Explanation: ${card.explanation}` : '';
+        return `Q: ${card.q} | A: ${card.a}${explanationFragment}`;
+      });
       const prompt = `Answer the user question using only the following deterministic card facts. Do not invent new information.\n\n${contextLines.join('\n')}\n\nQuestion: ${question}\nAnswer:`;
       const { ok, data } = await proxyOllama({
         model: OLLAMA_MODEL,

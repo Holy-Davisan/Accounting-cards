@@ -69,6 +69,13 @@ return (
         {isCorrect ? "🧠 Unga Smart" : "🪨 Rock Brain"}
       </p>
 
+      {card.explanation ? (
+        <div className="mt-4 rounded-industrial bg-clay/5 p-4 text-sm leading-relaxed text-charcoal">
+          <p className="font-semibold">Explanation</p>
+          <p className="mt-2 text-clay">{card.explanation}</p>
+        </div>
+      ) : null}
+
       <button
         onClick={onNext}
         className="mt-4 w-full bg-forest-900 text-cream p-3 rounded-organic font-semibold transition-all duration-200 hover:bg-charcoal hover:shadow-industrial active:scale-95"

@@ -26,6 +26,7 @@ export type AiCard = {
   q: string;
   o: string[];
   a: string; // canonical answer, preferably letter (A-D) when applicable
+  explanation?: string;
   explanations: Record<string, string>; // map from option key (A,B,C,...) to explanation (can be blank)
   truths?: string[]; // optional concise factual statements
 };

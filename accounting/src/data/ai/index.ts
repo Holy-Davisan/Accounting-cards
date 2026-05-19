@@ -11,18 +11,19 @@ function normalizeAnswer(card: { a: string; o: string[] }): string {
   return ans;
 }
 
-function buildAiCards(chapterId: string, cards: { q: string; a: string; o: string[] }[]): AiCard[] {
+function buildAiCards(chapterId: string, cards: { q: string; a: string; o: string[]; explanation?: string }[]): AiCard[] {
   return cards.map((c, i) => {
     const normalized = normalizeAnswer(c);
     const optionsKeys = c.o.map((_, idx) => String.fromCharCode(65 + idx));
     const explanations: Record<string, string> = {} as Record<string, string>;
-    optionsKeys.forEach((k) => (explanations[k] = "")); // leave explanations blank per request
+    optionsKeys.forEach((k) => (explanations[k] = ""));
 
     return {
       id: `${chapterId}-idx-${String(i + 1).padStart(2, "0")}`,
       q: c.q,
       o: c.o,
       a: normalized,
+      explanation: c.explanation ?? "",
       explanations,
       truths: [],
     };

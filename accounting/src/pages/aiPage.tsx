@@ -167,10 +167,16 @@ export default function AiPage({ onQuit }: Props) {
                     <span className="text-xs uppercase tracking-[0.2em] text-organic-orange-500">Answer: {card.a}</span>
                   </div>
                   <p className="mt-3 text-charcoal">{card.q}</p>
+                  {card.explanation ? (
+                    <p className="mt-3 text-sm text-clay">{card.explanation}</p>
+                  ) : null}
                   <div className="mt-3 grid gap-2 sm:grid-cols-2">
                     {card.o.map((option, index) => (
                       <div key={option} className="rounded-industrial border border-clay/20 bg-white px-3 py-2 text-sm text-charcoal">
                         <span className="font-semibold">{String.fromCharCode(65 + index)}.</span> {option}
+                        {card.explanations[String.fromCharCode(65 + index)] ? (
+                          <p className="mt-2 text-xs text-clay">{card.explanations[String.fromCharCode(65 + index)]}</p>
+                        ) : null}
                       </div>
                     ))}
                   </div>

@@ -85,4 +85,290 @@ export const cards: Card[] = [
     category: "general",
     explanation: "The correct answer is D because net income is calculated by subtracting expenses from revenue. Choice A is incorrect because it represents the accounting equation, not net income. Choice B is incorrect because gross profit equals revenue minus cost of goods sold, not revenue plus expenses. Choice C is incorrect because cash flow calculations are more complex and are not the formula for net income.",
   },
+  {
+  q: "The effects on the basic accounting equation of performing services for cash are to:",
+  a: "B",
+  o: [
+    "increase assets and decrease stockholders' equity",
+    "increase assets and increase stockholders' equity",
+    "increase assets and increase liabilities",
+    "increase liabilities and increase stockholders' equity"
+  ],
+  category: "general",
+  explanation: "The correct answer is B because when services are performed for cash, assets increase and stockholders' equity increases through revenue. Choice A is incorrect because stockholders' equity does not decrease. Choice C is incorrect because liabilities are not affected. Choice D is incorrect because liabilities do not increase in this transaction."
+},
+
+{
+  q: "Genesis Company buys a $900 machine on credit. This transaction will affect the:",
+  a: "B",
+  o: [
+    "income statement only",
+    "balance sheet only",
+    "income statement and retained earnings statement only",
+    "income statement, retained earnings statement, and balance sheet"
+  ],
+  category: "general",
+  explanation: "The correct answer is B because purchasing equipment on credit increases assets and liabilities, which are balance sheet accounts. Choices A, C, and D are incorrect because no revenue or expense accounts are affected."
+},
+
+{
+  q: "Which of the following events is not recorded in the accounting records?",
+  a: "B",
+  o: [
+    "Equipment is purchased on account",
+    "An employee is terminated",
+    "A cash investment is made into the business",
+    "Company pays dividend to stockholders"
+  ],
+  category: "general",
+  explanation: "The correct answer is B because terminating an employee is not a measurable financial transaction. Choices A, C, and D are recorded because they involve financial effects on the company."
+},
+
+{
+  q: "During 2025, Gibson Company assets decreased $50,000 and its liabilities decreased $90,000. Its stockholders’ equity therefore:",
+  a: "A",
+  o: [
+    "increased $40,000",
+    "decreased $140,000",
+    "decreased $40,000",
+    "increased $140,000"
+  ],
+  category: "general",
+  explanation: "The correct answer is A because if assets decrease by $50,000 and liabilities decrease by $90,000, stockholders’ equity must increase by $40,000 to keep the accounting equation balanced. The other choices do not maintain the equation."
+},
+
+{
+  q: "Which statement about an account is true?",
+  a: "B",
+  o: [
+    "An account consists of a title, a debit side, and a ledger side",
+    "An account is an individual accounting record of increases and decreases in specific asset, liability, and stockholders’ equity items",
+    "There are separate accounts for specific assets and liabilities but only one account for stockholders’ equity items",
+    "The left side of an account is the credit, or decrease, side"
+  ],
+  category: "general",
+  explanation: "The correct answer is B because an account records increases and decreases in specific accounting items. Choice A is incorrect because accounts have debit and credit sides. Choice C is incorrect because stockholders’ equity has multiple accounts. Choice D is incorrect because the left side is the debit side."
+},
+
+{
+  q: "Debits:",
+  a: "C",
+  o: [
+    "increase both assets and liabilities",
+    "decrease both assets and liabilities",
+    "increase assets and decrease liabilities",
+    "decrease assets and increase liabilities"
+  ],
+  category: "general",
+  explanation: "The correct answer is C because debits increase asset accounts and decrease liability accounts. The other choices incorrectly describe debit effects."
+},
+
+{
+  q: "A revenue account:",
+  a: "D",
+  o: [
+    "is increased by debits",
+    "is decreased by credits",
+    "has a normal balance of a debit",
+    "is increased by credits"
+  ],
+  category: "general",
+  explanation: "The correct answer is D because revenues increase with credits and normally carry a credit balance. Choices A, B, and C incorrectly describe revenue account behavior."
+},
+
+{
+  q: "Which accounts normally have debit balances?",
+  a: "D",
+  o: [
+    "Assets, expenses, and revenues",
+    "Assets, expenses, and retained earnings",
+    "Assets, liabilities, and dividends",
+    "Assets, dividends, and expenses"
+  ],
+  category: "general",
+  explanation: "The correct answer is D because assets, dividends, and expenses normally carry debit balances. Revenues, retained earnings, and liabilities normally have credit balances."
+},
+
+{
+  q: "Paying an account payable with cash affects the components of the accounting equation in the following way:",
+  a: "D",
+  o: [
+    "Decreases stockholders’ equity and decreases liabilities",
+    "Increases assets and decreases liabilities",
+    "Decreases assets and increases stockholders’ equity",
+    "Decreases assets and decreases liabilities"
+  ],
+  category: "general",
+  explanation: "The correct answer is D because paying accounts payable decreases cash, an asset, and decreases accounts payable, a liability. The other choices incorrectly describe the effects."
+},
+
+{
+  q: "Which of these statements about a journal is false?",
+  a: "A",
+  o: [
+    "It contains only revenue and expense accounts",
+    "It provides a chronological record of transactions",
+    "It helps to locate errors because the debit and credit amounts for each entry can be readily compared",
+    "It discloses in one place the complete effect of a transaction"
+  ],
+  category: "general",
+  explanation: "The correct answer is A because journals contain all types of accounts, not only revenue and expense accounts. Choices B, C, and D are true statements about journals."
+},
+
+{
+  q: "A ledger:",
+  a: "C",
+  o: [
+    "contains only asset and liability accounts",
+    "should show accounts in alphabetical order",
+    "is a record of all accounts maintained by a company and their amounts",
+    "provides a chronological record of transactions"
+  ],
+  category: "general",
+  explanation: "The correct answer is C because a ledger contains all company accounts and their balances. Choice A is incorrect because all account types are included. Choice B is incorrect because accounts are grouped by type, not alphabetically. Choice D is incorrect because the journal provides the chronological record."
+},
+
+{
+  q: "Posting:",
+  a: "D",
+  o: [
+    "normally occurs before journalizing",
+    "transfers ledger transaction data to the journal",
+    "is an optional step in the recording process",
+    "transfers journal entries to ledger accounts"
+  ],
+  category: "general",
+  explanation: "The correct answer is D because posting transfers journal entry information into ledger accounts. Choice A is incorrect because posting occurs after journalizing. Choice B reverses the process. Choice C is incorrect because posting is required."
+},
+{
+  q: `During 2025, Rain Corp. entered into the following transactions:\n\n1. Purchased equipment for $31,000 by issuing a note.\n2. Received $960 from tenant for rent.\n3. Paid $520 for supplies previously purchased on account.\n4. Performed services on account for $12,500.\n\nUsing tabular analysis, show the effect of each transaction on the accounting equation. Put explanations for changes to revenues or expenses in the right-hand margin. For retained earnings, use separate columns for revenues, expenses, and dividends if necessary. Use Illustration 3.4 as a model.\n\n$$\n\begin{array}{lcccccccccc}
+\text{Assets} & = & \text{Liabilities} & + & \text{Stockholders' Equity}\\
+\text{Cash} & + & \text{Receivable} & + & \text{Supplies} & + & \text{Equip.} & = & \text{Pay.} & + & \text{Pay.} & + & \text{Stock} & + & \text{Rev.} & - & \text{Exp.} & - & \text{Div.}
+\end{array}
+$$`,
+  a: "A",
+  o: [
+    "Assets increase $43,940, liabilities increase $31,000, and stockholders’ equity increases $13,460",
+    "Assets increase $43,940, liabilities increase $31,000, and stockholders’ equity increases $12,500",
+    "Assets increase $43,940, liabilities increase $31,520, and stockholders’ equity increases $12,420",
+    "Assets increase $43,940, liabilities increase $31,000, and stockholders’ equity increases $12,980"
+  ],
+  category: "exercise",
+  explanation: "The correct answer is A because the combined transaction effects are: equipment +31,000, cash +960, supplies -520, and accounts receivable +12,500, so assets change by +43,940. In MathJax: $$\text{Assets change} = 31{,}000 + 960 - 520 + 12{,}500 = 43{,}940.$$ Liabilities increase by +31,000 from the note payable: $$\text{Liabilities change} = 31{,}000.$$ Revenues and expenses affect retained earnings: $$\text{Net effect on equity} = 12{,}500 + 960 - 520 = 13{,}460.$$ No dividends were paid."
+},
+{
+  q: "Unorganized list: {investment, cash, ownership}. Which organized account structure correctly represents the transaction?",
+  a: "A",
+  o: [
+    "Common Stock, Cash",
+    "Cash, Common Stock",
+    "Service Revenue, Accounts Receivable",
+    "Accounts Payable, Equipment"
+  ],
+    category: "concept",
+  explanation: "The correct answer is A because the raw transaction set {investment, cash, ownership} organizes into Common Stock, Cash using the right-to-left accounting structure. Algebraic form: if investment then Common Stock, Cash."
+},
+
+{
+  q: "Unorganized list: {rent, cash, expense}. Which organized account structure correctly represents the transaction?",
+  a: "B",
+  o: [
+    "Cash, Rent Expense",
+    "Rent Expense, Cash",
+    "Accounts Payable, Cash",
+    "Equipment, Cash"
+  ],
+  category: "concept",
+  explanation: "The correct answer is B because the raw transaction set {rent, cash, expense} organizes into Rent Expense, Cash. Algebraic form: if rent payment then Rent Expense, Cash."
+},
+
+{
+  q: "Unorganized list: {services, receivable, revenue}. Which organized account structure correctly represents the transaction?",
+  a: "C",
+  o: [
+    "Cash, Service Revenue",
+    "Service Revenue, Accounts Receivable",
+    "Accounts Receivable, Service Revenue",
+    "Equipment, Accounts Receivable"
+  ],
+  category: "concept",
+  explanation: "The correct answer is C because the raw transaction set {services, receivable, revenue} organizes into Accounts Receivable, Service Revenue. Algebraic form: if services on account then Accounts Receivable, Service Revenue."
+},
+
+{
+  q: "Unorganized list: {equipment, payable, liability}. Which organized account structure correctly represents the transaction?",
+  a: "D",
+  o: [
+    "Accounts Payable, Equipment",
+    "Cash, Equipment",
+    "Equipment, Cash",
+    "Equipment, Accounts Payable"
+  ],
+  category: "concept",
+  explanation: "The correct answer is D because the raw transaction set {equipment, payable, liability} organizes into Equipment, Accounts Payable. Algebraic form: if purchase on account then Equipment, Accounts Payable."
+},
+{
+  q: "Unorganized set: {transaction, accounts, classification, balance rules, posting, summarizing}. Which system correctly describes the ordering logic of the double-entry accounting cycle (journal, ledger, trial balance)?",
+  a: "C",
+  o: [
+    "Alphabetical account listing → journal → trial balance → ledger → financial statements",
+    "Trial balance → journal → ledger → classification → transaction",
+    "Transaction → journal → ledger → trial balance → financial statements",
+    "Ledger → journal → transaction → trial balance → classification"
+  ],
+  category: "concept",
+  explanation: "The correct answer is C because the double-entry system follows a strict transformation pipeline: transaction recognition → journalizing → posting to ledger → preparing trial balance → financial statement preparation. Mnemonic: 'TJLTF' (Transactions, Journal, Ledger, Trial balance, Financials)."
+},
+
+{
+  q: "Unorganized set: {debit, credit, equality, dual effect, accounts}. Which system correctly defines the double-entry accounting principle?",
+  a: "B",
+  o: [
+    "Each transaction affects only one account but must be balanced monthly",
+    "Each transaction has equal debit and credit effects across at least two accounts",
+    "Debits always increase equity and credits always increase assets",
+    "Accounts are recorded only once in either the journal or ledger"
+  ],
+  category: "concept",
+  explanation: "The correct answer is B because the double-entry system requires every transaction to have equal debit and credit effects, maintaining the accounting equation. Algebraic form: ΔAssets = ΔLiabilities + ΔEquity. Mnemonic: 'DEAD' (Dual Effect Always Debits = Credits)."
+},
+
+{
+  q: "Unorganized set: {journal, chronological order, transactions, record keeping}. Which statement best describes the journal system?",
+  a: "A",
+  o: [
+    "A record of balances used only at period end",
+    "A list of accounts arranged by balance type",
+    "A chronological record of transactions showing debit and credit effects",
+    "A summary of ledger accounts used for financial statements"
+  ],
+  category: "concept",
+  explanation: "The correct answer is A because the journal records transactions in chronological order with debit and credit effects shown together. Mnemonic: 'COLD' (Chronological Order, Ledger Deferred)."
+},
+
+{
+  q: "Unorganized set: {accounts, balances, grouping, posting, classification}. Which system best describes the ledger?",
+  a: "C",
+  o: [
+    "A chronological record of transactions in date order",
+    "A temporary worksheet used only for adjustments",
+    "A record of all accounts grouped by classification with running balances",
+    "A statement of financial position prepared before transactions"
+  ],
+  category: "concept",
+  explanation: "The correct answer is C because the ledger organizes all accounts with their balances after posting from the journal. It is not chronological; it is classified by account type. Mnemonic: 'LAG' (Ledger = Accounts Grouped)."
+},
+
+{
+  q: "Unorganized set: {debits, credits, equality check, errors, totals}. Which system best describes a trial balance?",
+  a: "D",
+  o: [
+    "A journal entry system used to record transactions",
+    "A ledger posting mechanism used during transactions",
+    "A financial statement reporting profit and loss",
+    "A list of all ledger accounts with debit and credit totals used to verify equality"
+  ],
+  category: "concept",
+  explanation: "The correct answer is D because the trial balance is used to verify that total debits equal total credits after posting from the ledger. Mnemonic: 'DETECT' (Debits Equal Totals Ensure Credit Test)."
+}
 ];

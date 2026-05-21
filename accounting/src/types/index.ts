@@ -6,6 +6,17 @@ export type Card = {
   o: string[];
   category: CardCategory;
   explanation: string;
+  // optional per-option explanations (A,B,C...) to show after reveal
+  explanations?: Record<string, string>;
+  // FSRS metadata (optional) to support spaced repetition scheduling
+  reviews?: Array<{ date: string; rating: 1 | 2 | 3 | 4 }>;
+  difficulty?: number; // 0-1
+  stability?: number; // in days
+  retrievability?: number; // 0-1
+  lastReview?: string; // ISO date
+  nextReview?: string; // ISO date
+  interval?: number; // days
+  repetitions?: number;
 };
 
 export type Chapter = {

@@ -4,7 +4,9 @@ import { useScore } from "../hooks/useScore";
 import { useFlashcards } from "../hooks/useFlashcards";
 import QuestionCard from "../components/questionCard";
 import ResultsView from "../components/resultsView";
-import ReviewMode from "../components/reviewMode";
+import Confetti from "../components/confetti";
+import WrongBurst from "../components/wrongBurst";
+import NotificationBanner from "../components/notificationBanner";
 
 type Props = {
   cards: Card[];
@@ -14,10 +16,83 @@ type Props = {
 
 export default function FlashcardPage({ cards, title, onQuit }: Props) {
   const score = useScore();
+  const [confettiBurst, setConfettiBurst] = React.useState(0);
+  const [wrongBurstTrigger, setWrongBurstTrigger] = React.useState(0);
+  const [wrongBurstCount, setWrongBurstCount] = React.useState(0);
+  const [gradeHistory, setGradeHistory] = React.useState<Array<{ q: string; grade: 1 | 2 | 3 | 4; ts: string }>>([]);
+  const [gradeError, setGradeError] = React.useState("");
+  const [gradingInProgress, setGradingInProgress] = React.useState(false);
+  const [notificationVisible, setNotificationVisible] = React.useState(false);
+  const [notificationType, setNotificationType] = React.useState<'success' | 'error'>('success');
+  const [notificationMessage, setNotificationMessage] = React.useState("");
+
+  const handleGrade = async (grade: 1 | 2 | 3 | 4) => {
+    setGradeError("");
+    setGradingInProgress(true);
+    const card = flash.card;
+    if (!card) {
+      setGradingInProgress(false);
+      return;
+    }
+
+    // Extract chapter ID from title (e.g., "Chapter 1" -> "chapter-1")
+    const chapterMatch = title.match(/chapter\s+(\d+)/i);
+    const chapterId = chapterMatch ? `chapter-${chapterMatch[1]}` : null;
+    if (!chapterId) {
+      setGradeError("Could not determine chapter");
+      setNotificationType('error');
+      setNotificationMessage("Could not determine chapter");
+      setNotificationVisible(true);
+      setGradingInProgress(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/fsrs/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chapterId, cardQuestion: card.q, grade }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        const errorMsg = err.error || "Failed to save grade";
+        setGradeError(errorMsg);
+        setNotificationType('error');
+        setNotificationMessage(errorMsg);
+        setNotificationVisible(true);
+        setGradingInProgress(false);
+        return;
+      }
+      // persist to gradeHistory
+      setGradeHistory((prev) => [...prev, { q: card.q, grade, ts: new Date().toISOString() }]);
+      
+      // Show success notification
+      setNotificationType('success');
+      setNotificationMessage("");
+      setNotificationVisible(true);
+      
+      setGradingInProgress(false);
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : "Network error";
+      setGradeError(errorMsg);
+      setNotificationType('error');
+      setNotificationMessage(errorMsg);
+      setNotificationVisible(true);
+      setGradingInProgress(false);
+    }
+  };
 
   const flash = useFlashcards(cards, {
-    onCorrect: () => score.markCorrect(),
-    onWrong: (card) => score.markWrong(card),
+    onCorrect: (card) => {
+      score.markCorrect();
+      setConfettiBurst((c) => c + 1);
+    },
+    onWrong: (card) => {
+      score.markWrong(card);
+      const n = 7 + Math.floor(Math.random() * 9); // 7..15
+      setWrongBurstCount(n);
+      setWrongBurstTrigger((t) => t + 1);
+    },
   });
 
   if (cards.length === 0) {
@@ -38,30 +113,19 @@ export default function FlashcardPage({ cards, title, onQuit }: Props) {
   }
 
   if (flash.shouldReview && !flash.isDone) {
-    if (flash.isReviewMode) {
-      return (
-        <ReviewMode
-          wrongCards={flash.currentChunkWrongCards}
-          currentIndex={flash.reviewIndex}
-          onNext={flash.next}
-          onContinue={flash.continueAfterReview}
-        />
-      );
-    }
-
     return (
       <div className="min-h-screen flex items-center justify-center bg-forest-50 p-4">
         <div className="w-full max-w-md rounded-organic border-2 border-clay/20 bg-white p-8 text-center shadow-organic">
           <h1 className="text-2xl font-serif font-bold text-charcoal">🧠 Section Complete</h1>
           <p className="mt-3 text-clay font-sans">
-            You've completed {flash.i % 10 === 0 ? 10 : flash.i % 10} cards in this section.
-            {flash.currentChunkWrongCards.length > 0
-              ? ` Time to review the ${flash.currentChunkWrongCards.length} card${flash.currentChunkWrongCards.length === 1 ? '' : 's'} you got wrong.`
+            You've completed {flash.i % flash.total === 0 ? flash.total : flash.i % flash.total} cards in this round.
+            {flash.nextRoundWrongCards.length > 0
+              ? ` Time to review the ${flash.nextRoundWrongCards.length} card${flash.nextRoundWrongCards.length === 1 ? '' : 's'} you got wrong.`
               : ' Great job! No wrong cards to review.'
             }
           </p>
           <div className="mt-6 flex gap-3 justify-center">
-            {flash.currentChunkWrongCards.length > 0 ? (
+            {flash.nextRoundWrongCards.length > 0 ? (
               <button
                 onClick={flash.startReview}
                 className="rounded-organic bg-rose-500 px-5 py-3 text-white transition-all duration-200 hover:bg-rose-700 hover:shadow-organic active:scale-95 font-semibold"
@@ -97,7 +161,15 @@ export default function FlashcardPage({ cards, title, onQuit }: Props) {
 
   return (
     <div className="min-h-screen bg-forest-50 p-4">
+      <Confetti burst={confettiBurst} />
+      <NotificationBanner 
+        type={notificationType}
+        message={notificationMessage}
+        visible={notificationVisible}
+        onDismiss={() => setNotificationVisible(false)}
+      />
       <div className="w-full max-w-2xl mx-auto">
+        <WrongBurst trigger={wrongBurstTrigger} count={wrongBurstCount} />
         <div className="h-2 bg-clay/20 rounded-industrial w-full mb-8 shadow-inner">
           <div
             className="h-full bg-organic-orange-500 rounded-industrial transition-all duration-300"
@@ -128,6 +200,8 @@ export default function FlashcardPage({ cards, title, onQuit }: Props) {
           onSelect={flash.select}
           onReveal={flash.reveal}
           onNext={flash.next}
+          onGrade={handleGrade}
+          gradingInProgress={gradingInProgress}
         />
       </div>
     </div>

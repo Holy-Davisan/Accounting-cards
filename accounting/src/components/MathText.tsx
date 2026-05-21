@@ -13,99 +13,103 @@ type Segment =
 const DELIMITER_REGEX = /(\\\[|\\\]|\\\(|\\\)|\$\$|\$)/;
 
 export function parseMathString(text: string): Segment[] {
-  if (!DELIMITER_REGEX.test(text)) {
-    return [{ type: "text", content: text }];
-  }
-
-  const tokens = text.split(DELIMITER_REGEX);
+  // Robust scanner: finds $...$, $$...$$, \(...\), \[...\]
+  // - ignores escaped delimiters (preceded by backslash)
+  // - if any opening delimiter is not closed, treat the whole string as plain text
   const segments: Segment[] = [];
-  let openDelimiter: string | null = null;
+  const len = text.length;
+  let i = 0;
   let buffer = "";
 
-  const flushText = () => {
-    if (buffer) {
-      segments.push({ type: "text", content: buffer });
-      buffer = "";
-    }
+  const pushText = (s: string) => {
+    if (s) segments.push({ type: "text", content: s });
   };
 
-  for (const token of tokens) {
-    if (token === "\\(" || token === "\\[") {
-      flushText();
-      openDelimiter = token;
-      buffer = "";
-      continue;
-    }
+  while (i < len) {
+    const ch = text[i];
 
-    if (token === "\\)" && openDelimiter === "\\(") {
-      segments.push({
-        type: "math",
-        content: buffer,
-        displayMode: false,
-      });
-      openDelimiter = null;
-      buffer = "";
-      continue;
-    }
-
-    if (token === "\\]" && openDelimiter === "\\[") {
-      segments.push({
-        type: "math",
-        content: buffer,
-        displayMode: true,
-      });
-      openDelimiter = null;
-      buffer = "";
-      continue;
-    }
-
-    if (token === "$$") {
-      if (openDelimiter === "$$") {
-        segments.push({
-          type: "math",
-          content: buffer,
-          displayMode: true,
-        });
-        openDelimiter = null;
+    // detect $$
+    if (ch === "$") {
+      if (i + 1 < len && text[i + 1] === "$") {
+        // look for closing $$
+        const start = i + 2;
+        let j = start;
+        let closed = -1;
+        while (j < len) {
+          if (text[j] === "$" && j + 1 < len && text[j + 1] === "$") {
+            closed = j;
+            break;
+          }
+          if (text[j] === "\\") j++; // skip escaped char
+          j++;
+        }
+        if (closed === -1) {
+          // unclosed delimiter: return whole text as plain
+          return [{ type: "text", content: text }];
+        }
+        pushText(buffer);
+        const content = text.slice(start, closed);
+        segments.push({ type: "math", content, displayMode: true });
         buffer = "";
-      } else if (!openDelimiter) {
-        flushText();
-        openDelimiter = token;
-        buffer = "";
-      } else {
-        buffer += token;
+        i = closed + 2;
+        continue;
       }
-      continue;
-    }
 
-    if (token === "$") {
-      if (openDelimiter === "$") {
-        segments.push({
-          type: "math",
-          content: buffer,
-          displayMode: false,
-        });
-        openDelimiter = null;
-        buffer = "";
-      } else if (!openDelimiter) {
-        flushText();
-        openDelimiter = token;
-        buffer = "";
-      } else {
-        buffer += token;
+      // single $
+      const start = i + 1;
+      let j = start;
+      let closed = -1;
+      while (j < len) {
+        if (text[j] === "$") {
+          closed = j;
+          break;
+        }
+        if (text[j] === "\\") j++; // skip escaped
+        j++;
       }
+      if (closed === -1) {
+        return [{ type: "text", content: text }];
+      }
+      pushText(buffer);
+      const content = text.slice(start, closed);
+      segments.push({ type: "math", content, displayMode: false });
+      buffer = "";
+      i = closed + 1;
       continue;
     }
 
-    buffer += token;
+    // detect \( or \[
+    if (ch === "\\" && i + 1 < len && (text[i + 1] === "(" || text[i + 1] === "[")) {
+      const open = text[i + 1];
+      const close = open === "(" ? ")" : "]";
+      const start = i + 2;
+      let j = start;
+      let closed = -1;
+      while (j < len) {
+        if (text[j] === "\\" && j + 1 < len && text[j + 1] === close) {
+          closed = j;
+          break;
+        }
+        if (text[j] === "\\") j++; // skip escaped
+        j++;
+      }
+      if (closed === -1) {
+        return [{ type: "text", content: text }];
+      }
+      pushText(buffer);
+      const content = text.slice(start, closed);
+      segments.push({ type: "math", content, displayMode: open === "[" });
+      buffer = "";
+      i = closed + 2; // skip the escaped closer
+      continue;
+    }
+
+    // default char
+    buffer += ch;
+    i++;
   }
 
-  if (openDelimiter) {
-    segments.push({ type: "text", content: `${openDelimiter}${buffer}` });
-  } else {
-    flushText();
-  }
-
+  pushText(buffer);
   return segments;
 }
 
@@ -120,9 +124,13 @@ export default function MathText({ text, className }: Props) {
     <span className={className}>
       {segments.map((segment, idx) =>
         segment.type === "math" ? (
-          <MathJax key={idx} inline={!segment.displayMode}>
-            {segment.content}
-          </MathJax>
+          segment.displayMode ? (
+            <div key={idx} className="my-2">
+              <MathJax inline={false}>{segment.content}</MathJax>
+            </div>
+          ) : (
+            <MathJax key={idx} inline>{segment.content}</MathJax>
+          )
         ) : (
           <span key={idx}>{segment.content}</span>
         )

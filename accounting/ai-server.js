@@ -10,6 +10,33 @@ const OLLAMA_MODEL = process.env.OLLAMA_MODEL || 'llama-2-7b';
 const dataRoot = path.join(__dirname, 'src', 'data');
 const keywordIndexPath = path.join(dataRoot, 'ai', 'keywordIndex.json');
 const cardSourceDir = path.join(dataRoot, 'cards');
+const fsrsDir = path.join(__dirname, 'data', 'fsrs');
+
+/**
+ * Simple FSRS update: apply grade to card
+ * grade: 1 (fail) to 4 (perfect)
+ */
+function updateFSRSCard(card, grade) {
+  const now = new Date().toISOString();
+  const updated = { ...card };
+  updated.reviews = [...(card.reviews || []), { date: now, rating: grade }];
+  const difficultyChange = (5 - grade) * 0.1;
+  updated.difficulty = Math.max(0, Math.min(1, (card.difficulty || 0.3) - difficultyChange * 0.2));
+  const efMultiplier = 1.3 - (5 - grade) * 0.1;
+  updated.stability = Math.max(1, (card.stability || 1) * efMultiplier);
+  if (!card.repetitions || card.repetitions === 0) {
+    updated.interval = 1;
+  } else if (card.repetitions === 1) {
+    updated.interval = 3;
+  } else {
+    updated.interval = Math.ceil((card.interval || 1) * updated.stability);
+  }
+  updated.retrievability = 0.5;
+  updated.repetitions = (card.repetitions || 0) + 1;
+  updated.lastReview = now;
+  updated.nextReview = new Date(Date.now() + updated.interval * 24 * 60 * 60 * 1000).toISOString();
+  return updated;
+}
 
 function normalizeAnswer(card) {
   const ans = (card.a || '').toString().trim();
@@ -187,6 +214,50 @@ const server = http.createServer(async (req, res) => {
 
   if (pathname === '/api/ai/health' && req.method === 'GET') {
     return sendJson(res, 200, { status: 'ok', model: OLLAMA_MODEL });
+  }
+
+  if (pathname === '/api/fsrs/chapters' && req.method === 'GET') {
+    try {
+      const chapterIds = ['chapter-1', 'chapter-2', 'chapter-3', 'chapter-4'];
+      const chapters = [];
+      for (const id of chapterIds) {
+        const fsrsPath = path.join(fsrsDir, `${id}.json`);
+        if (fs.existsSync(fsrsPath)) {
+          const data = JSON.parse(fs.readFileSync(fsrsPath, 'utf8'));
+          chapters.push(data);
+        }
+      }
+      return sendJson(res, 200, { chapters });
+    } catch (error) {
+      return sendJson(res, 500, { error: 'Failed to load FSRS chapters', details: error?.message });
+    }
+  }
+
+  if (pathname === '/api/fsrs/update' && req.method === 'POST') {
+    let raw = '';
+    for await (const chunk of req) raw += chunk;
+    try {
+      const body = JSON.parse(raw || '{}');
+      const { chapterId, cardQuestion, grade } = body;
+      if (!chapterId || !cardQuestion || !grade || ![1, 2, 3, 4].includes(grade)) {
+        return sendJson(res, 400, { error: 'Missing or invalid chapterId, cardQuestion, or grade (1-4)' });
+      }
+      const fsrsPath = path.join(fsrsDir, `${chapterId}.json`);
+      if (!fs.existsSync(fsrsPath)) {
+        return sendJson(res, 404, { error: `FSRS file not found for chapter ${chapterId}` });
+      }
+      const chapter = JSON.parse(fs.readFileSync(fsrsPath, 'utf8'));
+      const cardIndex = chapter.cards.findIndex((c) => c.q === cardQuestion);
+      if (cardIndex < 0) {
+        return sendJson(res, 404, { error: `Card not found: ${cardQuestion}` });
+      }
+      const updatedCard = updateFSRSCard(chapter.cards[cardIndex], grade);
+      chapter.cards[cardIndex] = updatedCard;
+      fs.writeFileSync(fsrsPath, JSON.stringify(chapter, null, 2));
+      return sendJson(res, 200, { success: true, card: updatedCard });
+    } catch (error) {
+      return sendJson(res, 500, { error: 'Failed to update FSRS', details: error?.message });
+    }
   }
 
   sendJson(res, 404, { error: 'Not found' });

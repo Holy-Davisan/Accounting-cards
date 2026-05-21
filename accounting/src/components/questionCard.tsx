@@ -13,6 +13,8 @@ type Props = {
   onSelect: (key: string) => void;
   onReveal: () => void;
   onNext: () => void;
+  onGrade?: (grade: 1 | 2 | 3 | 4) => Promise<void> | void;
+  gradingInProgress?: boolean;
 };
 
 export default function QuestionCard({
@@ -25,6 +27,8 @@ isCorrect,
 onSelect,
 onReveal,
 onNext,
+  onGrade,
+  gradingInProgress = false,
 }: Props) {
 return (
 <div className="bg-white w-full max-w-md rounded-organic shadow-organic border-l-4 border-organic-orange-500 p-6">
@@ -41,12 +45,15 @@ return (
   <div className="space-y-3">
     {card.o.map((opt, idx) => {
       const key = ["A", "B", "C", "D"][idx];
+      const explanation = card.explanations?.[key];
 
       return (
         <OptionButton
           key={key}
           selected={selected === key}
           onClick={() => onSelect(key)}
+          explanation={explanation}
+          showExplanation={revealed}
         >
           <MathText text={`${key}. ${opt}`} />
         </OptionButton>
@@ -76,12 +83,48 @@ return (
         </div>
       ) : null}
 
-      <button
-        onClick={onNext}
-        className="mt-4 w-full bg-forest-900 text-cream p-3 rounded-organic font-semibold transition-all duration-200 hover:bg-charcoal hover:shadow-industrial active:scale-95"
-      >
-        Next →
-      </button>
+      <div className="mt-4 grid grid-cols-4 gap-2">
+        <button
+          onClick={() => {
+            onGrade && onGrade(1);
+            onNext();
+          }}
+          disabled={gradingInProgress}
+          className="py-2 px-2 rounded-organic bg-rose-500 text-white font-semibold text-sm transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {gradingInProgress ? "..." : "1"}
+        </button>
+        <button
+          onClick={() => {
+            onGrade && onGrade(2);
+            onNext();
+          }}
+          disabled={gradingInProgress}
+          className="py-2 px-2 rounded-organic bg-amber-500 text-white font-semibold text-sm transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {gradingInProgress ? "..." : "2"}
+        </button>
+        <button
+          onClick={() => {
+            onGrade && onGrade(3);
+            onNext();
+          }}
+          disabled={gradingInProgress}
+          className="py-2 px-2 rounded-organic bg-organic-orange-500 text-white font-semibold text-sm transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {gradingInProgress ? "..." : "3"}
+        </button>
+        <button
+          onClick={() => {
+            onGrade && onGrade(4);
+            onNext();
+          }}
+          disabled={gradingInProgress}
+          className="py-2 px-2 rounded-organic bg-forest-900 text-white font-semibold text-sm transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {gradingInProgress ? "..." : "4"}
+        </button>
+      </div>
     </div>
   )}
 </div>

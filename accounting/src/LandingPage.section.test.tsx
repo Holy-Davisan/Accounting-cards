@@ -32,6 +32,7 @@ describe('LandingPage section navigation', () => {
         onSelectChapter={onSelectChapter}
         onSearch={() => {}}
         onReviewRandom={() => {}}
+        onReviewSmart={async () => {}}
       />
     );
 

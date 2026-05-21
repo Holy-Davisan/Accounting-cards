@@ -11,8 +11,10 @@ setCorrect((c) => c + 1);
 };
 
 const markWrong = (card: Card) => {
-setWrong((w) => w + 1);
-setWrongCards((prev) => [...prev, card]);
+  setWrong((w) => w + 1);
+  setWrongCards((prev) =>
+    prev.some((wrongCard) => wrongCard.q === card.q) ? prev : [...prev, card]
+  );
 };
 
 return {

@@ -5,6 +5,7 @@ import FlashcardPage from "./pages/flashcardPage";
 import AiPage from "./pages/aiPage";
 import { chapters } from "./data";
 import { Card, Chapter } from "./types";
+import { selectSmartCards } from "./lib/smartCards";
 
 function shuffleCards(cards: Card[]) {
   return [...cards].sort(() => Math.random() - 0.5);
@@ -74,6 +75,24 @@ export default function App() {
     setPage("flashcards");
   };
 
+  const handleReviewSmart = async () => {
+    setMessage("Loading smart cards...");
+    try {
+      const smartCards = await selectSmartCards(20);
+      if (smartCards.length === 0) {
+        setMessage("No cards available for review. Try a chapter or search instead.");
+        return;
+      }
+      setActiveCards(smartCards as Card[]);
+      setActiveTitle(`Smart Review — ${smartCards.length} Most Urgent Cards`);
+      setMessage("");
+      setPage("flashcards");
+    } catch (err) {
+      setMessage("Failed to load smart cards. Try a chapter instead.");
+      console.error(err);
+    }
+  };
+
   const handleReturnHome = () => {
     setPage("landing");
     setMessage("");
@@ -100,6 +119,7 @@ export default function App() {
           onSelectChapter={handleSelectChapter}
           onSearch={handleSearch}
           onReviewRandom={handleReviewRandom}
+          onReviewSmart={handleReviewSmart}
           onOpenAi={handleOpenAi}
           message={message}
         />

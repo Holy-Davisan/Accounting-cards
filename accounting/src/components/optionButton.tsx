@@ -4,9 +4,11 @@ type Props = {
   selected: boolean;
   onClick: () => void;
   children: React.ReactNode;
+  explanation?: string;
+  showExplanation?: boolean;
 };
 
-export default function OptionButton({ children, selected, onClick }: Props) {
+export default function OptionButton({ children, selected, onClick, explanation, showExplanation }: Props) {
   return (
     <button
       onClick={onClick}
@@ -16,7 +18,12 @@ export default function OptionButton({ children, selected, onClick }: Props) {
           : "border-clay/30 bg-white hover:border-organic-orange-300 hover:bg-organic-orange-50/50"
       }`}
     >
-      {children}
+      <div>{children}</div>
+      {showExplanation && explanation && (
+        <div className="mt-2 pt-2 border-t border-clay/20 text-sm text-clay font-sans italic">
+          {explanation}
+        </div>
+      )}
     </button>
   );
 }

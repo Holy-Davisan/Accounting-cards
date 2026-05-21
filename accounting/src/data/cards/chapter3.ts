@@ -72,11 +72,11 @@ export const cards: Card[] = [
     explanation: "The correct answer is B because an accounting information system gathers, processes, and communicates financial information that managers and other users need for decision-making. Choice A is incorrect because no system can guarantee profits. Choice C is incorrect because accounting systems can reduce errors but cannot eliminate them completely. Choice D is incorrect because financial statements are still necessary outputs of the system.",
   },
   {
-    q: "If assets are $$120{,}000$ and liabilities are $$80{,}000$, what is equity according to the accounting equation $\\text{Assets} = \\text{Liabilities} + \\text{Equity}$?",
+    q: "If assets are $120{,}000$ and liabilities are $80{,}000$, what is equity according to the accounting equation $\\text{Assets} = \\text{Liabilities} + \\text{Equity}$?",
     a: "A",
-    o: ["$$40{,}000$","$$200{,}000$","$$80{,}000$","$$120{,}000$"],
+    o: ["$40{,}000$","$200{,}000$","$80{,}000$","$120{,}000$"],
     category: "exercise",
-    explanation: "The correct answer is A, \"$$40{,}000$,\" because equity equals assets minus liabilities. Using the accounting equation, $$120{,}000 - 80{,}000 = 40{,}000$$. Choice B is incorrect because it adds assets and liabilities instead of subtracting. Choice C is incorrect because it repeats the liabilities amount rather than calculating equity. Choice D is incorrect because it repeats the assets amount.",
+    explanation: "The correct answer is A, \"$40{,}000$\", because equity equals assets minus liabilities. Using the accounting equation, $$120{,}000 - 80{,}000 = 40{,}000$$. Choice B is incorrect because it adds assets and liabilities instead of subtracting. Choice C is incorrect because it repeats the liabilities amount rather than calculating equity. Choice D is incorrect because it repeats the assets amount.",
   },
   {
     q: "Which of the following correctly represents net income using financial statement terms?",

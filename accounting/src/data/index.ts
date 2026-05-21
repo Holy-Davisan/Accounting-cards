@@ -1,6 +1,8 @@
 import { Chapter } from "../types";
 import * as chapter1 from "./cards/chapter1";
 import * as chapter2 from "./cards/chapter2";
+import * as chapter3 from "./cards/chapter3";
+import * as chapter4 from "./cards/chapter4";
 
 const chapterDefinitions: Chapter[] = [
   {
@@ -14,6 +16,18 @@ const chapterDefinitions: Chapter[] = [
     title: "Chapter 2",
     description: "Chapter 2",
     cards: chapter2.cards,
+  },
+  {
+    id: "chapter-3",
+    title: "Chapter 3",
+    description: "Chapter 3",
+    cards: chapter3.cards,
+  },
+  {
+    id: "chapter-4",
+    title: "Chapter 4",
+    description: "Chapter 4",
+    cards: chapter4.cards,
   },
 ];
 

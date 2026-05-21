@@ -6,11 +6,12 @@ type Props = {
   onSelectChapter: (chapterId: string, sectionIndex?: number) => void;
   onSearch: (query: string) => void;
   onReviewRandom: () => void;
+  onReviewSmart: () => Promise<void>;
   onOpenAi?: () => void;
   message?: string;
 };
 
-export default function LandingPage({ chapters, onSelectChapter, onSearch, onReviewRandom, onOpenAi, message }: Props) {
+export default function LandingPage({ chapters, onSelectChapter, onSearch, onReviewRandom, onReviewSmart, onOpenAi, message }: Props) {
   const [query, setQuery] = useState("");
   const [selectedSections, setSelectedSections] = useState<Record<string, number>>({});
 
@@ -29,18 +30,18 @@ export default function LandingPage({ chapters, onSelectChapter, onSearch, onRev
             <div>
               <p className="text-sm text-organic-orange-500 uppercase tracking-[0.2em] font-mono">Accounting cards</p>
               <h1 className="mt-3 text-4xl font-serif font-bold tracking-tight text-charcoal">
-                Explore accounting chapters, search cards, or review 20 random questions.
+                Explore accounting chapters, search cards, or review smart cards based on your FSRS schedule.
               </h1>
               <p className="mt-4 text-clay max-w-2xl">
-                Start with a chapter, search the whole deck, or practice a random set of 20 cards. Your progress resets each session.
+                Start with a chapter, search the whole deck, or review the most urgent 20 cards based on spaced repetition scheduling. Your progress is saved in real-time.
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <button
-                onClick={onReviewRandom}
+                onClick={onReviewSmart}
                 className="inline-flex items-center justify-center rounded-organic bg-organic-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-organic transition-all duration-200 hover:bg-organic-orange-700 hover:shadow-lg hover:-translate-y-1 active:scale-95"
               >
-                Review 20 Random Cards
+                Review Smart Cards
               </button>
               {onOpenAi ? (
                 <button

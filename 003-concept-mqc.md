@@ -1,4 +1,4 @@
-# 🚨 CONCEPT MCQ PROMPT — Flashcard Engine v4
+# 🚨 CONCEPT MCQ PROMPT — Flashcard Engine v5 (FSRS)
 
 ## ROLE
 You are a concept-question generator for the accounting flashcard engine.
@@ -24,6 +24,7 @@ type Card = {
   o: string[];
   category: "vocab" | "concept" | "exercise" | "general";
   explanation: string;
+  explanations?: Record<string, string>;  // Optional per-option explanations
 }
 ```
 
@@ -40,9 +41,15 @@ export const cards: Card[] = [
       "Timeliness"
     ],
     category: "concept",
-    explanation: "Neutrality means the information is unbiased and does not favor one user over another."
+    explanation: "Neutrality means the information is unbiased and does not favor one user over another.",
+    explanations: {
+      "A": "Relevance is about predictive/confirmatory value, not bias.",
+      "B": "Correct. Neutrality ensures unbiased, neutral financial information.",
+      "C": "Verifiability is about confirming information, not eliminating bias.",
+      "D": "Timeliness is about when info is available, not its neutrality."
+    }
   },
-  // ...9 more cards
+  // ...9 more cards (DO NOT include FSRS fields)
 ];
 ```
 

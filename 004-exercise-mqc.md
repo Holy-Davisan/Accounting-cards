@@ -1,4 +1,4 @@
-# 🚨 EXERCISE MCQ PROMPT — Flashcard Engine v4
+# 🚨 EXERCISE MCQ PROMPT — Flashcard Engine v5 (FSRS)
 
 ## ROLE
 You are an applied accounting question generator for the current flashcard engine.
@@ -24,6 +24,7 @@ type Card = {
   o: string[];
   category: "vocab" | "concept" | "exercise" | "general";
   explanation: string;
+  explanations?: Record<string, string>;  // Optional per-option explanations
 }
 ```
 
@@ -40,9 +41,15 @@ export const cards: Card[] = [
       "As a liability"
     ],
     category: "exercise",
-    explanation: "The prepayment is a future benefit and should be recorded as a prepaid asset."
+    explanation: "The prepayment is a future benefit and should be recorded as a prepaid asset.",
+    explanations: {
+      "A": "Correct. Prepaid expenses are assets until they are consumed.",
+      "B": "Expense is too early. Insurance hasn't been used yet.",
+      "C": "Insurance is not revenue; it's a cost to the company.",
+      "D": "A payment obligation is a liability, not a prepayment that's already paid."
+    }
   },
-  // ...9 more cards
+  // ...9 more cards (DO NOT include FSRS fields)
 ];
 ```
 

@@ -1,4 +1,4 @@
-# 🚨 GENERAL MCQ PROMPT — Flashcard Engine v4
+# 🚨 GENERAL MCQ PROMPT — Flashcard Engine v5 (FSRS)
 
 ## ROLE
 You are a general review flashcard generator for the current system.
@@ -24,6 +24,7 @@ type Card = {
   o: string[];
   category: "vocab" | "concept" | "exercise" | "general";
   explanation: string;
+  explanations?: Record<string, string>;  // Optional per-option explanations
 }
 ```
 
@@ -40,9 +41,15 @@ export const cards: Card[] = [
       "They are prepared using different underlying accounting assumptions"
     ],
     category: "general",
-    explanation: "The balance sheet shows resources and obligations, while the income statement shows performance over time."
+    explanation: "The balance sheet shows resources and obligations, while the income statement shows performance over time.",
+    explanations: {
+      "A": "Cash flows are reported in the cash flow statement, not the balance sheet.",
+      "B": "This is backwards: the balance sheet is a point in time; the income statement measures a period.",
+      "C": "Correct. The balance sheet lists assets/liabilities; the income statement shows revenues/expenses.",
+      "D": "While they use similar assumptions, the key difference is in what they report, not how."
+    }
   },
-  // ...9 more cards
+  // ...9 more cards (DO NOT include FSRS fields)
 ];
 ```
 

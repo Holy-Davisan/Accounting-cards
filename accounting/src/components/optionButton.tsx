@@ -6,9 +6,10 @@ type Props = {
   children: React.ReactNode;
   explanation?: string;
   showExplanation?: boolean;
+  highlightCorrect?: boolean;
 };
 
-export default function OptionButton({ children, selected, onClick, explanation, showExplanation }: Props) {
+export default function OptionButton({ children, selected, onClick, explanation, showExplanation, highlightCorrect = false }: Props) {
   return (
     <button
       onClick={onClick}
@@ -18,7 +19,7 @@ export default function OptionButton({ children, selected, onClick, explanation,
           : "border-clay/30 bg-white hover:border-organic-orange-300 hover:bg-organic-orange-50/50"
       }`}
     >
-      <div>{children}</div>
+      <div className={`${highlightCorrect ? "text-rose-600" : ""}`}>{children}</div>
       {showExplanation && explanation && (
         <div className="mt-2 pt-2 border-t border-clay/20 text-sm text-clay font-sans italic">
           {explanation}

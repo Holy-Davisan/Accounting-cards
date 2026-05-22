@@ -325,3 +325,13 @@ is computed as net cash provided by operating activities divided by total assets
 
 ---
 
+
+
+## tid bits
+* Companies use a contra account, instead of debiting Sales Revenue, to track separately in the accounts and to report separately in the income statement the amount of sales returns and allowances. Disclosure of this information is important to management for the following reasons:
+
+* Identifies Underlying Problems: Excessive returns and allowances may suggest issues such as inferior merchandise, inaccuracies in filling orders, errors in billing customers, or delivery and shipment mistakes.
+
+* Preserves Transparency: A decrease (debit) recorded directly to Sales Revenue would obscure the relative importance of sales returns and allowances as a percentage of sales.
+
+* Maintains Comparability: Recording directly to Sales Revenue could distort comparisons between total sales in different accounting periods.

@@ -5,12 +5,13 @@ export type Card = {
   a: string;
   o: string[];
   category: CardCategory;
-  explanation: string;
+  explanation?: string;
   // optional per-option explanations (A,B,C...) to show after reveal
   explanations?: Record<string, string>;
   // FSRS metadata (optional) to support spaced repetition scheduling
   reviews?: Array<{ date: string; rating: 1 | 2 | 3 | 4 }>;
-  difficulty?: number; // 0-1
+  // difficulty is a simple enum used for filtering/scheduling
+  difficulty?: 'easy' | 'hard';
   stability?: number; // in days
   retrievability?: number; // 0-1
   lastReview?: string; // ISO date

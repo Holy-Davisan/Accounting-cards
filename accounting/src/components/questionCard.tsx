@@ -46,6 +46,8 @@ return (
     {card.o.map((opt, idx) => {
       const key = ["A", "B", "C", "D"][idx];
       const explanation = card.explanations?.[key];
+      const isLetterAnswer = typeof card.a === "string" && card.a.length === 1;
+      const isCorrectOption = isLetterAnswer ? card.a === key : card.a === opt;
 
       return (
         <OptionButton
@@ -54,6 +56,7 @@ return (
           onClick={() => onSelect(key)}
           explanation={explanation}
           showExplanation={revealed}
+          highlightCorrect={revealed && isCorrectOption}
         >
           <MathText text={`${key}. ${opt}`} />
         </OptionButton>

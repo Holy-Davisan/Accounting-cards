@@ -1,159 +1,201 @@
-Here is a checklist of repository files and folders. Underlined entries are folders; child items are indented with a tab.
+Here is your TOC document with all the leading tabs removed:
 
-Each file is listed on its own line; the following line is a short blockquote explaining what it is and why it exists. Extra blank lines improve legibility.
+* [ ] initial.md
 
-- [ ] initial.md
 > A starting notes file describing the project goals and early thoughts; useful for historical context.
 
-- [ ] package.json
+* [ ] package.json
+
 > Top-level npm metadata and scripts for the workspace; defines workspace-level commands and dependencies.
 
-- [ ] README.md
+* [ ] README.md
+
 > Project overview and quickstart instructions for contributors and operators.
 
-- [ ] TOC.md
+* [ ] TOC.md
+
 > This file — a navigable checklist of repository files and short descriptions.
 
-- [ ] specs/
+* [ ] specs/
+
 > Folder containing specification documents that drive feature work and schema decisions.
 
-_accounting/_
+## *accounting/*
 
-	- [ ] accounting/package.json
-	> Frontend app manifest and scripts for the React app under the accounting folder.
+* [ ] accounting/package.json
 
-	- [ ] accounting/tsconfig.json
-	> TypeScript config for the accounting app; enforces strict compilation.
+> Frontend app manifest and scripts for the React app under the accounting folder.
 
-	- [ ] accounting/ai-server.js
-	> Small local AI helper server used during development for model proxies.
+* [ ] accounting/tsconfig.json
 
-	- [ ] accounting/build/
-	> Compiled production assets for quick local deploy and previews.
+> TypeScript config for the accounting app; enforces strict compilation.
 
-	- [ ] accounting/data/
-	> Runtime JSON assets and build-time index files used by the app.
+* [ ] accounting/ai-server.js
 
-	- [ ] accounting/public/index.html
-	> App entry HTML template and manifest files used for builds.
+> Small local AI helper server used during development for model proxies.
 
-	_ accounting/src _
+* [ ] accounting/build/
 
-		- [ ] app.tsx
-		> Main React application root; wires pages, state, and MathJax configuration.
+> Compiled production assets for quick local deploy and previews.
 
-		- [ ] index.tsx
-		> DOM bootstrapper that mounts the React application.
+* [ ] accounting/data/
 
-		- [ ] app.css / index.css
-		> Global styles used by the app (tailwind + local utilities).
+> Runtime JSON assets and build-time index files used by the app.
 
-		- [ ] react-app-env.d.ts
-		> React/TS environment type shims required by the CRA toolchain.
+* [ ] accounting/public/index.html
 
-		- [ ] report-web-vitals.ts
-		> Performance telemetry hooks used in development.
+> App entry HTML template and manifest files used for builds.
 
-		- [ ] setupTests.ts
-		> Test setup and global test utilities.
+### _ accounting/src _
 
-		_Components/_
+* [ ] app.tsx
 
-			- [ ] confetti.tsx
-			> Visual confetti component used when the user answers correctly.
+> Main React application root; wires pages, state, and MathJax configuration.
 
-			- [ ] math-text.tsx
-			> Lightweight parser and renderer for inline/display MathJax segments.
+* [ ] index.tsx
 
-			- [ ] math-text.test.tsx
-			> Unit tests for the math-text parser.
+> DOM bootstrapper that mounts the React application.
 
-			- [ ] notification-banner.tsx
-			> Dismissible success/error banner shown after actions.
+* [ ] app.css / index.css
 
-			- [ ] option-button.tsx
-			> Reusable option/button used inside question cards.
+> Global styles used by the app (tailwind + local utilities).
 
-			- [ ] question-card.tsx
-			> Primary UI for displaying a single question, options and grading controls.
+* [ ] react-app-env.d.ts
 
-			- [ ] results-view.tsx
-			> Session summary UI showing correct/wrong counts and next steps.
+> React/TS environment type shims required by the CRA toolchain.
 
-			- [ ] review-mode.tsx
-			> UI used to review wrong cards after a session.
+* [ ] report-web-vitals.ts
 
-			- [ ] wrong-burst.tsx
-			> Decorative animation shown on wrong answers to increase feedback.
+> Performance telemetry hooks used in development.
 
-		_Data/_
+* [ ] setupTests.ts
 
-			- [ ] index.ts
-			> Aggregates chapter definitions and normalizes card data for runtime.
+> Test setup and global test utilities.
 
-			- [ ] index.test.ts
-			> Tests asserting data normalization and index behavior.
+***Components/***
 
-			- [ ] cards/
-			> Moduleized card lists per chapter; source of truth for deterministic content.
+* [ ] confetti.tsx
 
-				- [ ] chapter1.ts, chapter2.ts, chapter3.ts, chapter4.ts
-				> Chapter card arrays used by the app.
+> Visual confetti component used when the user answers correctly.
 
-			- [ ] ai/
-			> Deterministic AI index and AI-specific card definitions used by the assistant.
+* [ ] math-text.tsx
 
-				- [ ] index.ts
-				> AI-specific aggregation and helpers.
+> Lightweight parser and renderer for inline/display MathJax segments.
 
-				- [ ] keyword-index.json
-				> Precomputed keyword index for deterministic search.
+* [ ] math-text.test.tsx
 
-		_Hooks/_
+> Unit tests for the math-text parser.
 
-			- [ ] use-flashcards.ts
-			> Custom hook encapsulating flashcard session logic and review flows.
+* [ ] notification-banner.tsx
 
-			- [ ] use-score.ts
-			> Hook that tracks and persists user score and wrong-cards during a session.
+> Dismissible success/error banner shown after actions.
 
-		_Lib/_
+* [ ] option-button.tsx
 
-			- [ ] fsrs.ts
-			> FSRS scheduling utilities: next review, difficulty adjustments and helpers used by smart selection.
+> Reusable option/button used inside question cards.
 
-			- [ ] normalizers.ts
-			> Data normalization helpers that ensure card objects are consistent and safe.
+* [ ] question-card.tsx
 
-			- [ ] smart-cards.ts
-			> Logic to select the most urgent cards for spaced repetition review.
+> Primary UI for displaying a single question, options and grading controls.
 
-		_Pages/_
+* [ ] results-view.tsx
 
-			- [ ] landing-page.tsx
-			> Home/landing UI for chapter selection, search and entry points to study modes.
+> Session summary UI showing correct/wrong counts and next steps.
 
-			- [ ] flashcard-page.tsx
-			> The study session view that composes question-card and results components.
+* [ ] review-mode.tsx
 
-			- [ ] ai-page.tsx
-			> AI assistant UI for deterministic search and model-generated answers.
+> UI used to review wrong cards after a session.
 
-			- [ ] flashcard-page.backup
-			> A backup copy of the prior flashcard page kept for reference (should be removed or documented before merge).
+* [ ] wrong-burst.tsx
 
-		_Types/_
+> Decorative animation shown on wrong answers to increase feedback.
 
-			- [ ] index.ts
-			> Shared TypeScript types and interfaces used across the app (Card, Chapter, AiCard, etc.).
+***Data/***
 
-- [ ] context/
+* [ ] index.ts
+
+> Aggregates chapter definitions and normalizes card data for runtime.
+
+* [ ] index.test.ts
+
+> Tests asserting data normalization and index behavior.
+
+* [ ] cards/
+
+> Moduleized card lists per chapter; source of truth for deterministic content.
+
+* [ ] chapter1.ts, chapter2.ts, chapter3.ts, chapter4.ts
+
+> Chapter card arrays used by the app.
+
+* [ ] ai/
+
+> Deterministic AI index and AI-specific card definitions used by the assistant.
+
+* [ ] index.ts
+
+> AI-specific aggregation and helpers.
+
+* [ ] keyword-index.json
+
+> Precomputed keyword index for deterministic search.
+
+***Hooks/***
+
+* [ ] use-flashcards.ts
+
+> Custom hook encapsulating flashcard session logic and review flows.
+
+* [ ] use-score.ts
+
+> Hook that tracks and persists user score and wrong-cards during a session.
+
+***Lib/***
+
+* [ ] fsrs.ts
+
+> FSRS scheduling utilities: next review, difficulty adjustments and helpers used by smart selection.
+
+* [ ] normalizers.ts
+
+> Data normalization helpers that ensure card objects are consistent and safe.
+
+* [ ] smart-cards.ts
+
+> Logic to select the most urgent cards for spaced repetition review.
+
+***Pages/***
+
+* [ ] landing-page.tsx
+
+> Home/landing UI for chapter selection, search and entry points to study modes.
+
+* [ ] flashcard-page.tsx
+
+> The study session view that composes question-card and results components.
+
+* [ ] ai-page.tsx
+
+> AI assistant UI for deterministic search and model-generated answers.
+
+* [ ] flashcard-page.backup
+
+> A backup copy of the prior flashcard page kept for reference (should be removed or documented before merge).
+
+***Types/***
+
+* [ ] index.ts
+
+> Shared TypeScript types and interfaces used across the app (Card, Chapter, AiCard, etc.).
+
+## context/
+
 > Project-level documentation and engineering standards (including code-standards.md).
 
-	- [ ] code-standards.md
-	> The canonical engineering and coding standards to follow in this repo.
+* [ ] code-standards.md
 
-- [ ] specs/
+> The canonical engineering and coding standards to follow in this repo.
+
+## specs/
+
 > Higher-level specs and feature documents that guide development and PRs.
-
-If you'd like, I can (A) apply more of the variable/function naming transformations (snake_case) across the TypeScript sources, which is a large, invasive change; (B) remove the backup file and clean up remaining lint warnings; or (C) commit these changes and open a PR summarizing the renames.

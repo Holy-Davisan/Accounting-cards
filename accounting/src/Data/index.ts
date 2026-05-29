@@ -6,6 +6,7 @@ import * as chapter4 from "./cards/chapter4";
 import * as chapter5 from "./cards/chapter5";
 import * as chapter8 from "./cards/chapter8";
 import * as chapter9 from "./cards/chapter9";
+import * as chapter10 from "./cards/chapter10";
 import { normalizeCards } from "../Lib/normalizers";
 
 const chapterDefinitions: Chapter[] = [
@@ -50,6 +51,12 @@ const chapterDefinitions: Chapter[] = [
     title: "Chapter 9",
     description: "Chapter 9",
     cards: normalizeCards(chapter9.cards),
+  },
+  {
+    id: "chapter-10",
+    title: "Chapter 10",
+    description: "Chapter 10",
+    cards: normalizeCards(chapter10.cards),
   }
 ];
 
